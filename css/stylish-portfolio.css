@@ -20,7 +20,7 @@ body {
     display: table-cell;
     text-align: center;
     vertical-align: bottom;
-    color: white;
+    color: black;
 }
 
 .text-vertical-center h1 {
@@ -149,6 +149,20 @@ hr.small {
     margin: 5px 5px 0 0;
 }
 
+/* Top Header */
+
+.topheader {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url(../img/logo.png) no-repeat center center scroll;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    background-size: contain;
+    -o-background-size: contain;
+}
+
 /* Header */
 
 .header {
@@ -157,10 +171,10 @@ hr.small {
     width: 100%;
     height: 100%;
     background: url(../img/bg.jpg) no-repeat center center scroll;
-    -webkit-background-size: auto;
-    -moz-background-size: auto;
-    background-size: auto;
-    -o-background-size: cover;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    background-size: contain;
+    -o-background-size: contain;
 }
 
 /* About */
