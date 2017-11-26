@@ -21,6 +21,7 @@ body {
     text-align: center;
     vertical-align: bottom;
     color: black;
+    margin: auto;
 }
 
 .text-vertical-center h1 {
