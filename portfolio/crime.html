@@ -1,0 +1,559 @@
+<p><strong>Approximating the Impact of Crime on Property Values</strong></p>
+<p>University of Maryland University College (UMUC)</p>
+<p>MATH240</p>
+<p>Timothy Healy</p>
+<p>Spring 2016</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>Introduction</strong></li>
+</ol>
+<p>Housing values are often assessed by the sales price of similarly sized and located homes. While assessors control for variables such as square feet, number of bedrooms and numbers of bathrooms, the impact of crime in the neighborhood is not taken into account. By compiling crime data from the City of Baltimore and median home values from Zillow, a housing data research service, this paper will employ a least squares approximation to derive the cost of crime to housing values.</p>
+<p>Quantifying the impact of crime, in dollars, benefits both city officials and residents. For city officials, it can help shape more precise crime-fighting policy and quantify the benefit of reductions of certain types of crime. Additionally, it helps city officials understand how different types of crime can deteriorate the property tax base of the city, which can be useful for long-term financial planning. It also helps city residents understand how different crimes can affect housing values, when determining whether to buy or sell residential property in Baltimore&rsquo;s neighborhoods.</p>
+<p>This paper will first give some background on least squares approximations, define variables, and define the structure of the model. A generalized solution for the problem will then be defined, and with the aid of R, the model will be implemented to solve for the costs. Finally, a conclusion will follow to summarize and reflect on the results.</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>Background</strong></li>
+</ol>
+<p>Least squares approximation is a technique used in linear algebra to approximate a solution for an that has no solution.&nbsp; More specifically, it can be employed when a matrix has more rows than columns (, and the &nbsp;columns only span a small part of the &nbsp;dimensional space. In these situations, elimination cannot be used to solve.</p>
+<p>In this model, it will be employed to derive a cost impact to home values of different types of crimes committed within the neighborhoods of Baltimore. First, the following variables will be defined:</p>
+<p><br /> <br /> <br /> <br /> </p>
+<p>Using these variables the following matrices and vectors can be constructed:</p>
+<p>The equation for expressing the relationship between the matrix &nbsp;and &nbsp;becomes. The goal of least squares approximation is to find &nbsp;so that &nbsp;is as close to &nbsp;as possible, to minimize. If &nbsp;is defined as being made of up &nbsp;row vectors&nbsp;, then the least squares solution can also be expressed as the vector &nbsp;that minimizes:</p>
+<ul>
+<li><strong>Solution</strong></li>
+</ul>
+<p>We know that &nbsp;is not in the span of, because &nbsp;has no solution. Therefore, in order to generate a least squares solution, we need to find a vector in the span of &nbsp;that minimizes the distance between&nbsp;and. We also know that the closest vector to &nbsp;in the span of &nbsp;is the projection of &nbsp;onto the span of. Knowing this, we can solve for the vector &nbsp;that sets. We start by subtracting &nbsp;from each side of the equation to express it in terms its distance from</p>
+<p>&nbsp;exists in the orthogonal column space of :orthogonal column space of &nbsp;is equal to the null space of. We can now use this relationship to continue to solve for</p>
+<p><br /> <br /> <br /> </p>
+<p>This equation can now be used to calculate the vector &nbsp;of length, which is our least squares solution. It is also useful to visualize this relationship. Although the problem has been simplified into, the following plot helps to visualize how we relate the vector &nbsp;and the linear combination</p>
+<p>We are seeking to minimize, which is the vector orthogonal to the plane of the. Essentially, &nbsp;is minimized when, so by solving for &nbsp;we find the linear combination in the &nbsp;that minimizes</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>Generalization </strong></li>
+</ol>
+<table width="542">
+<tbody>
+<tr>
+<td width="92">
+<p>Neighborhood</p>
+</td>
+<td width="50">
+<p>AGG. ASSAULT</p>
+</td>
+<td width="50">
+<p>ARSON</p>
+</td>
+<td width="50">
+<p>ASSAULT BY THREAT</p>
+</td>
+<td width="50">
+<p>AUTO THEFT</p>
+</td>
+<td width="50">
+<p>BURGLARY</p>
+</td>
+<td width="50">
+<p>COMMON ASSAULT</p>
+</td>
+<td width="50">
+<p>HOMICIDE</p>
+</td>
+<td width="50">
+<p>⋯</p>
+</td>
+<td width="50">
+<p>MEDIAN VALUE/SF</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Allendale</p>
+</td>
+<td width="50">
+<p>124</p>
+</td>
+<td width="50">
+<p>3</p>
+</td>
+<td width="50">
+<p>12</p>
+</td>
+<td width="50">
+<p>176</p>
+</td>
+<td width="50">
+<p>238</p>
+</td>
+<td width="50">
+<p>191</p>
+</td>
+<td width="50">
+<p>11</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>39</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Arcadia</p>
+</td>
+<td width="50">
+<p>32</p>
+</td>
+<td width="50">
+<p>2</p>
+</td>
+<td width="50">
+<p>1</p>
+</td>
+<td width="50">
+<p>24</p>
+</td>
+<td width="50">
+<p>76</p>
+</td>
+<td width="50">
+<p>60</p>
+</td>
+<td width="50">
+<p>0</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>122</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Ashburton</p>
+</td>
+<td width="50">
+<p>42</p>
+</td>
+<td width="50">
+<p>4</p>
+</td>
+<td width="50">
+<p>7</p>
+</td>
+<td width="50">
+<p>118</p>
+</td>
+<td width="50">
+<p>217</p>
+</td>
+<td width="50">
+<p>57</p>
+</td>
+<td width="50">
+<p>6</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>96</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Baltimore Highlands</p>
+</td>
+<td width="50">
+<p>240</p>
+</td>
+<td width="50">
+<p>7</p>
+</td>
+<td width="50">
+<p>21</p>
+</td>
+<td width="50">
+<p>99</p>
+</td>
+<td width="50">
+<p>172</p>
+</td>
+<td width="50">
+<p>409</p>
+</td>
+<td width="50">
+<p>7</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>70</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Barclay</p>
+</td>
+<td width="50">
+<p>160</p>
+</td>
+<td width="50">
+<p>5</p>
+</td>
+<td width="50">
+<p>23</p>
+</td>
+<td width="50">
+<p>100</p>
+</td>
+<td width="50">
+<p>238</p>
+</td>
+<td width="50">
+<p>275</p>
+</td>
+<td width="50">
+<p>14</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>99</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Beechfield</p>
+</td>
+<td width="50">
+<p>57</p>
+</td>
+<td width="50">
+<p>2</p>
+</td>
+<td width="50">
+<p>4</p>
+</td>
+<td width="50">
+<p>128</p>
+</td>
+<td width="50">
+<p>167</p>
+</td>
+<td width="50">
+<p>124</p>
+</td>
+<td width="50">
+<p>3</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>105</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Belair-Edison</p>
+</td>
+<td width="50">
+<p>497</p>
+</td>
+<td width="50">
+<p>36</p>
+</td>
+<td width="50">
+<p>83</p>
+</td>
+<td width="50">
+<p>527</p>
+</td>
+<td width="50">
+<p>1046</p>
+</td>
+<td width="50">
+<p>992</p>
+</td>
+<td width="50">
+<p>34</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>67</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Berea</p>
+</td>
+<td width="50">
+<p>203</p>
+</td>
+<td width="50">
+<p>6</p>
+</td>
+<td width="50">
+<p>18</p>
+</td>
+<td width="50">
+<p>141</p>
+</td>
+<td width="50">
+<p>189</p>
+</td>
+<td width="50">
+<p>363</p>
+</td>
+<td width="50">
+<p>12</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>56</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Better Waverly</p>
+</td>
+<td width="50">
+<p>199</p>
+</td>
+<td width="50">
+<p>8</p>
+</td>
+<td width="50">
+<p>19</p>
+</td>
+<td width="50">
+<p>135</p>
+</td>
+<td width="50">
+<p>329</p>
+</td>
+<td width="50">
+<p>268</p>
+</td>
+<td width="50">
+<p>10</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>67</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>Biddle Street</p>
+</td>
+<td width="50">
+<p>55</p>
+</td>
+<td width="50">
+<p>4</p>
+</td>
+<td width="50">
+<p>9</p>
+</td>
+<td width="50">
+<p>39</p>
+</td>
+<td width="50">
+<p>110</p>
+</td>
+<td width="50">
+<p>164</p>
+</td>
+<td width="50">
+<p>8</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>67</p>
+</td>
+</tr>
+<tr>
+<td width="92">
+<p>⋮</p>
+</td>
+<td width="50">
+<p>⋮</p>
+</td>
+<td width="50">
+<p>⋮</p>
+</td>
+<td width="50">
+<p>⋮</p>
+</td>
+<td width="50">
+<p>⋮</p>
+</td>
+<td width="50">
+<p>⋮</p>
+</td>
+<td width="50">
+<p>⋮</p>
+</td>
+<td width="50">
+<p>⋮</p>
+</td>
+<td width="50">&nbsp;</td>
+<td width="50">
+<p>⋮</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The crime dataset was downloaded from the City of Baltimore&rsquo;s open data website. It consists of ~256,000 crimes committed dating back to January 1, 2011. The data was then further processed to summarize the crimes committed in the &nbsp;different neighborhoods over the &nbsp;crime types to build the matrix &nbsp;Median home values by neighborhood were then downloaded from Zillow and merged with &nbsp;to create our vector</p>
+<p>Using R, the matrix &nbsp;and the vector &nbsp;&nbsp;are simply inserted into the equation, to derive a solution for&nbsp;of length, for each crime type. Please see the appendix for a screenshot of the supporting script used to calculate:</p>
+<table width="203">
+<tbody>
+<tr>
+<td width="142">
+<p><strong>Crime</strong></p>
+</td>
+<td width="62">
+<p><strong>&Theta;</strong></p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>AGG. ASSAULT</p>
+</td>
+<td width="62">
+<p>0.308331</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>ARSON</p>
+</td>
+<td width="62">
+<p>-3.0065</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>ASSAULT BY THREAT</p>
+</td>
+<td width="62">
+<p>-0.21319</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>AUTO THEFT</p>
+</td>
+<td width="62">
+<p>0.518155</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>BURGLARY</p>
+</td>
+<td width="62">
+<p>0.280377</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>COMMON ASSAULT</p>
+</td>
+<td width="62">
+<p>-0.19062</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>HOMICIDE</p>
+</td>
+<td width="62">
+<p>-4.05176</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>LARCENY</p>
+</td>
+<td width="62">
+<p>0.086993</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>LARCENY FROM AUTO</p>
+</td>
+<td width="62">
+<p>0.120001</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>RAPE</p>
+</td>
+<td width="62">
+<p>-0.25771</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>ROBBERY - CARJACKING</p>
+</td>
+<td width="62">
+<p>-1.69164</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>ROBBERY - COMMERCIAL</p>
+</td>
+<td width="62">
+<p>-1.02541</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>ROBBERY - RESIDENCE</p>
+</td>
+<td width="62">
+<p>-1.94241</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>ROBBERY - STREET</p>
+</td>
+<td width="62">
+<p>0.158963</p>
+</td>
+</tr>
+<tr>
+<td width="142">
+<p>SHOOTING</p>
+</td>
+<td width="62">
+<p>-0.06152</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>Conclusion </strong></li>
+</ol>
+<p>Homicides and arson are the most costly to Baltimore&rsquo;s home values, as this model approximated -$4.05, and -$3.01, respectively, of lost neighborhood home value for each crime committed. Knowing this is important for a city official in quantifying the benefit of enacting crime-fighting policy. For example, the Belair-Edison neighborhood of Baltimore had 34 homicides since 2011, with a current median home value of $67/SF.&nbsp; If the next five year homicide rate can be reduced by ~20%, or 7 homicides, to 27, this model implies home values in the neighborhood increasing to $95/SF. At the City&rsquo;s current property tax rate of 2.2%, this creates $0.62/SF of additional tax value on the $28/SF of incremental property values in the neighborhood.</p>
+<p>It is also interesting to see positive values in the table: for example, auto thefts and burglaries contributing $0.52 and $0.28, respectively, of increased home value for every crime committed. This implies that the higher valued neighborhoods tend to have more auto thefts and burglaries than the lower valued neighborhoods. Perhaps this is a result of higher disposable income in the area, and thus, more cars to steal and more valuable household items to burglarize. In order to improve the model, perhaps it would be more useful to look at the &ldquo;theft&rdquo; types of crime as being normalized to control for the disposable income in the neighborhood.</p>
+<p>Although this model is not perfect, it is useful in seeing how crimes committed in Baltimore&rsquo;s neighborhoods relate to median home values. This is valuable for Baltimore&rsquo;s city officials and residents to understand. Linear algebra is the tool that helps us approximate this relationship.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><br /> </strong></p>
+<p><strong>&nbsp;</strong></p>
+<ol>
+<li><strong>References</strong></li>
+</ol>
+<p>Baltimore City Police Department, Baltimore City Open Data, [Data file]. Retrieved from <a href="https://data.baltimorecity.gov/Crime/Crime-by-Neighborhood/6ayg-3z5z">https://data.baltimorecity.gov/Crime/Crime-by-Neighborhood/6ayg-3z5z</a></p>
+<p>Zillow Research, Zillow Home Value Index (ZHVI) [Data file]. Retrieved from <a href="http://www.zillow.com/research/data/">http://www.zillow.com/research/data/</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>&nbsp;</strong></p>
+<ol>
+<li><strong>Appendix</strong></li>
+</ol>
+<p>&nbsp;</p>
+<p><strong>&nbsp;</strong></p>
