@@ -2388,11 +2388,22 @@ input, select, textarea {
 		  color: #0000FF;
 		}
 
-		.ac-logo {
-		  width: 250px;
-		  padding-top: 10px;
-		  padding-left: 8px;
-		  padding-bottom: 8px;
+		.dm-logo {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 75%;
+		}
+		
+		.vz-logo {
+			display: block;
+			padding-bottom: 10px;
+			width: 25%;
+		}
+		
+		.terp-logo {
+			display: block;
+			width: 50%;
 		}
 
 		.riser-logo {
